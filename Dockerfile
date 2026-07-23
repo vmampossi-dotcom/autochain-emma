@@ -13,8 +13,9 @@ RUN npm run build --silent
 
 FROM php:8.2-fpm-alpine
 
-RUN apk add --no-cache bash git openssh libzip-dev oniguruma-dev libpng-dev icu-dev zlib-dev autoconf build-base make gcc g++ \
-    && docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl gd intl || true
+RUN apk add --no-cache bash git openssh libzip-dev oniguruma-dev libpng-dev icu-dev zlib-dev autoconf build-base make gcc g++ freetype-dev libjpeg-turbo-dev libpng-dev libwebp-dev musl-dev
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp
+RUN docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl gd intl
 
 # Install composer binary
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -28,13 +29,15 @@ COPY . /var/www/html
 COPY --from=node_builder /app/public /var/www/html/public
 
 # Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist || true
+RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 
 # Permissions for storage and cache
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache || true
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 ENV APP_ENV=production
 ENV PORT=8080
 
+EXPOSE 8080
+
 # Start using artisan serve so Render can bind to the provided PORT
-CMD ["sh", "-lc", "php artisan serve --host 0.0.0.0 --port ${PORT:-8080}"]
+CMD ["php", "artisan", "serve", "--host", "0.0.0.0", "--port", "${PORT:-8080}"]

@@ -1,0 +1,19 @@
+# Render manifest in the repository root for the Docker deployment
+services:
+  - type: web
+    name: autochain-emma-backend
+    env: docker
+    branch: main
+    plan: free
+    dockerfilePath: Dockerfile
+    root: .
+    autoDeploy: true
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_URL
+        value: https://autochain-emma.onrender.com
+      - key: DB_CONNECTION
+        value: mysql
