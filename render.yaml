@@ -1,0 +1,21 @@
+# Render manifest to deploy the Laravel backend using the Dockerfile
+services:
+  - type: web
+    name: autochain-emma-backend
+    env: docker
+    branch: main
+    plan: free
+    dockerfilePath: contracts/backend/laravel/Dockerfile
+    root: contracts/backend/laravel
+    autoDeploy: true
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_URL
+        value: https://autochain-emma.onrender.com
+      - key: DB_CONNECTION
+        value: sqlite
+      - key: DB_DATABASE
+        value: /var/www/html/database/database.sqlite
