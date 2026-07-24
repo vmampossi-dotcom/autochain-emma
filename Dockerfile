@@ -42,7 +42,8 @@ ENV PORT=8080
 
 EXPOSE 8080
 
-RUN touch /var/www/html/database/database.sqlite
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/database
+# Donnez les autorisations nécessaires sur les dossiers de cache et de stockage
+RUN chmod -R 777 storage bootstrap/cache
 
-CMD php artisan config:clear && php artisan cache:clear && php artisan serve --host=0.0.0.0 --port=8080
+# Commande de démarrage simplifiée
+CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8080
