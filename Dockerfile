@@ -25,6 +25,9 @@ WORKDIR /var/www/html
 # Copy application files
 COPY . /var/www/html
 
+# Ensure the SQLite database directory and file are available in the runtime image
+RUN mkdir -p /var/www/html/database && touch /var/www/html/database/database.sqlite
+
 # Copy built frontend assets from node_builder (assumes build outputs to public/)
 COPY --from=node_builder /app/public /var/www/html/public
 
@@ -39,5 +42,4 @@ ENV PORT=8080
 
 EXPOSE 8080
 
-# Start using artisan serve so Render can bind to the provided PORT
-CMD php artisan serve --host=0.0.0.0 --port=8080
+CMD php artisan config:clear && php artisan cache:clear && php artisan serve --host=0.0.0.0 --port=8080
