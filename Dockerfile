@@ -34,6 +34,9 @@ COPY --from=node_builder /app/public /var/www/html/public
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 
+# Ensure Vite production assets (CSS/JS) are present in the runtime image
+RUN if [ ! -d /var/www/html/public/build ]; then echo "Vite build output missing"; exit 1; fi
+
 # Permissions for storage and cache
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 

@@ -4,8 +4,6 @@ vendor
 .env
 .env.*
 storage/*.key
-storage/*.sqlite
-storage/*.sqlite3
 storage/framework/cache/data
 storage/logs
 storage/app/public
