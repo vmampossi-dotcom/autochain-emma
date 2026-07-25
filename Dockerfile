@@ -10,6 +10,7 @@ COPY package*.json package-lock.json ./
 RUN npm ci --silent
 COPY . .
 RUN npm run build --silent
+RUN ls -la /app/public && ls -la /app/public/build || true
 
 FROM php:8.2-fpm-alpine
 

@@ -17,3 +17,5 @@ services:
         value: https://autochain-emma.onrender.com
       - key: DB_CONNECTION
         value: mysql
+      - key: NODE_ENV
+        value: production
