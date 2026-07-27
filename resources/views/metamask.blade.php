@@ -1,28 +1,35 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            {{ __('MetaMask') }}
-        </h2>
+        <div class="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+            <div>
+                <h2 class="text-xl font-semibold leading-tight text-slate-900">
+                    {{ __('MetaMask') }}
+                </h2>
+                <p class="mt-1 text-sm text-slate-600">
+                    {{ __('Connectez votre portefeuille pour interagir avec les opérations blockchain.') }}
+                </p>
+            </div>
+        </div>
     </x-slot>
 
     <div class="py-8">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div class="rounded-2xl bg-white dark:bg-gray-800 shadow-sm p-6">
-                <h1 class="text-2xl font-semibold text-gray-900 dark:text-gray-100">Connecter MetaMask</h1>
+            <div class="rounded-2xl border border-slate-200 bg-white/90 p-6 shadow-sm">
+                <h1 class="text-2xl font-semibold text-slate-900">Connecter MetaMask</h1>
                 <div class="mt-4 space-y-3">
-                    <button id="connectBtn" class="rounded-xl bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-500">Connecter MetaMask</button>
-                    <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="flex flex-col gap-2 rounded-md border border-slate-200 bg-slate-50 p-3">
-                            <div class="text-xs font-medium text-slate-500 uppercase">Compte</div>
+                    <button id="connectBtn" class="rounded-xl bg-indigo-600 px-4 py-2 text-white transition hover:bg-indigo-500">Connecter MetaMask</button>
+                    <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <div class="flex flex-col gap-2 rounded-xl border border-slate-200 bg-slate-50 p-3">
+                            <div class="text-xs font-medium uppercase tracking-[0.2em] text-slate-500">Compte</div>
                             <div class="flex items-center justify-between">
-                                <div id="accountDisplay" class="font-mono text-sm text-slate-800 dark:text-slate-100">—</div>
+                                <div id="accountDisplay" class="font-mono text-sm text-slate-800">—</div>
                                 <button id="copyAccount" class="ml-3 text-xs text-indigo-600 hover:underline">Copier</button>
                             </div>
                         </div>
 
-                        <div class="flex flex-col gap-2 rounded-md border border-slate-200 bg-slate-50 p-3">
-                            <div class="text-xs font-medium text-slate-500 uppercase">Réseau</div>
-                            <div id="networkDisplay" class="text-sm text-slate-800 dark:text-slate-100">—</div>
+                        <div class="flex flex-col gap-2 rounded-xl border border-slate-200 bg-slate-50 p-3">
+                            <div class="text-xs font-medium uppercase tracking-[0.2em] text-slate-500">Réseau</div>
+                            <div id="networkDisplay" class="text-sm text-slate-800">—</div>
                         </div>
                     </div>
                 </div>

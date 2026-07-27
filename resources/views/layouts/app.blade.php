@@ -16,26 +16,26 @@
         @livewireStyles
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+        <div class="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(79,70,229,0.18),_transparent_30%),linear-gradient(135deg,_#f8fafc_0%,_#eef2ff_100%)] text-slate-900">
             <livewire:layout.navigation />
 
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <header class="border-b border-slate-200/80 bg-white/70 backdrop-blur">
+                    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
                 </header>
             @elseif(View::hasSection('header'))
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <header class="border-b border-slate-200/80 bg-white/70 backdrop-blur">
+                    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                         @yield('header')
                     </div>
                 </header>
             @endif
 
             <!-- Page Content -->
-            <main>
+            <main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
                 @isset($slot)
                     {{ $slot }}
                 @else
