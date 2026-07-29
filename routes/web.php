@@ -6,6 +6,7 @@ use App\Http\Controllers\WalletAuthController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Artisan;
 use App\Models\Vehicle;
 
 Route::get('/', function () {
@@ -58,3 +59,11 @@ Route::view('profile', 'profile')
 require __DIR__.'/auth.php';
 
 // debug routes removed
+
+Route::get('/clear-all', function () {
+    Artisan::call('config:clear');
+    Artisan::call('cache:clear');
+    Artisan::call('route:clear');
+    Artisan::call('view:clear');
+    return 'Le cache Laravel a été entièrement nettoyé !';
+});
