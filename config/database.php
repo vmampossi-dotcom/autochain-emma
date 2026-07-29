@@ -35,7 +35,19 @@ return [
         'sqlite' => [
             'driver' => 'sqlite',
             'url' => env('DB_URL'),
-            'database' => env('DB_DATABASE', database_path('database.sqlite')),
+            'database' => (function () {
+                $configured = env('DB_DATABASE', 'database/database.sqlite');
+
+                if (empty($configured)) {
+                    return database_path('database.sqlite');
+                }
+
+                if (Str::startsWith($configured, '/var/www/html/') && !file_exists($configured)) {
+                    return database_path('database.sqlite');
+                }
+
+                return $configured;
+            })(),
             'prefix' => '',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
             'busy_timeout' => null,

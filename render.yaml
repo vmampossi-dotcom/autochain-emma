@@ -16,6 +16,12 @@ services:
       - key: APP_URL
         value: https://autochain-emma.onrender.com
       - key: DB_CONNECTION
-        value: mysql
+        value: sqlite
+      - key: DB_DATABASE
+        value: database/database.sqlite
+      - key: SESSION_DRIVER
+        value: file
+      - key: CACHE_STORE
+        value: file
       - key: NODE_ENV
         value: production

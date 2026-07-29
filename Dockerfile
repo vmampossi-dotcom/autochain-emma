@@ -38,9 +38,6 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-di
 # Ensure Vite production assets (CSS/JS) are present in the runtime image
 RUN if [ ! -d /var/www/html/public/build ]; then echo "Vite build output missing"; exit 1; fi
 
-# Generate Laravel cache and optimize the app for production
-RUN php artisan config:cache && php artisan route:cache && php artisan view:cache
-
 # Permissions for storage and cache
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
@@ -53,4 +50,4 @@ EXPOSE 8080
 RUN chmod -R 777 storage bootstrap/cache
 
 # Commande de démarrage simplifiée
-CMD php artisan migrate --force && php artisan storage:link && php artisan serve --host=0.0.0.0 --port=8080
+CMD php artisan migrate --force && php artisan storage:link && php artisan config:cache && php artisan route:cache && php artisan view:cache && php artisan serve --host=0.0.0.0 --port=8080
